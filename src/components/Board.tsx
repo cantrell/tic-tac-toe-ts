@@ -1,6 +1,7 @@
 import React from 'react';
 import Square from './Square';
 import Marks from './Marks';
+import styled from 'styled-components';
 
 interface BoardProps {
     onWinner(winner: number):void
@@ -22,6 +23,19 @@ const DEFAULT_STATE = {
     history: [],
 };
 
+const StyledBoardRow = styled.div`
+    &:after {
+        clear: both;
+        content: "";
+        display: table;
+    }
+`;
+
+const StyledStatus = styled.div`
+    height: 30px;
+    margin-bottom: 10px;
+`;
+
 class Board extends React.Component<BoardProps, BoardState> {
 
     public constructor(props: BoardProps) {
@@ -34,6 +48,7 @@ class Board extends React.Component<BoardProps, BoardState> {
     }
 
     private handleClick(i: number) {
+        if (this.state.squares[i] !== null) return; // No-op if the square is already taken
         const squares: Array<number> = this.state.squares.slice();
         if (this.state.gameOver) return;
         squares[i] = this.state.turn;
@@ -100,28 +115,28 @@ class Board extends React.Component<BoardProps, BoardState> {
         history.pop(); // Don't want to go back to the current state
         return (
             <div>
-                <div className="status">
+                <StyledStatus>
                     {this.state.gameOver ? (
-                        <p>Game over. <button onClick={(e) => this.resetGame()}>Play again?</button></p>
+                        <p>Game over. <button onClick={(e) => this.resetGame()}>Play Again</button></p>
                     ) : (
                         <p>Next Player: {(this.state.turn === Marks.X) ? 'X' : 'O'}</p>
                     )}
-                </div>
-                <div className="board-row">
+                </StyledStatus>
+                <StyledBoardRow>
                     {this.renderSquare(0)}
                     {this.renderSquare(1)}
                     {this.renderSquare(2)}
-                </div>
-                <div className="board-row">
+                </StyledBoardRow>
+                <StyledBoardRow>
                     {this.renderSquare(3)}
                     {this.renderSquare(4)}
                     {this.renderSquare(5)}
-                </div>
-                <div className="board-row">
+                </StyledBoardRow>
+                <StyledBoardRow>
                     {this.renderSquare(6)}
                     {this.renderSquare(7)}
                     {this.renderSquare(8)}
-                </div>
+                </StyledBoardRow>
                 {this.state.history.length > 0 &&
                     <ol>
                         {history}

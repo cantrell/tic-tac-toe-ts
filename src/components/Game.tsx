@@ -1,15 +1,29 @@
 import React from 'react';
 import Board from './Board';
 import Marks from './Marks';
+import styled from 'styled-components';
 
 interface GameProps {
-
 }
 
 interface GameState {
     xWins: number;
     oWins: number;
 }
+
+const StyledScore = styled.div`
+    display: table;
+`;
+
+const StyledRow = styled.div`
+    display: table-row;
+`;
+
+const StyledCell = styled.div`
+    display: table-cell;
+    padding: 4px;
+    text-align: right;
+`;
 
 class Game extends React.Component<GameProps, GameState> {
 
@@ -32,16 +46,16 @@ class Game extends React.Component<GameProps, GameState> {
     public render() {
         return (
             <div>
-                <div className="game">
-                    <div className="game-board">
-                        <Board onWinner={this.handleWinner}/>
-                    </div>
-                    <div className="game-info">
-                        <div>
-                            <div>X wins: {this.state.xWins}</div>
-                            <div>O wins: {this.state.oWins}</div>
-                        </div>
-                    </div>
+                <StyledScore>
+                    <StyledRow>
+                        <StyledCell>X wins:</StyledCell><StyledCell>{this.state.xWins}</StyledCell>
+                    </StyledRow>
+                    <StyledRow>
+                        <StyledCell>O wins:</StyledCell><StyledCell>{this.state.oWins}</StyledCell>
+                    </StyledRow>
+                </StyledScore>
+                <div>
+                    <Board onWinner={this.handleWinner}/>
                 </div>
             </div>
         );

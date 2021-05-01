@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+The React Tic Tac Toe example implemented with TypeScript and styled-components.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Setup
+`npm install @types/styled-components`
 
 ## Available Scripts
 
